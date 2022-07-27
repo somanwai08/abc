@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
   Redirect,
-  Link,
+  //Link
 } from 'react-router-dom'
 
 import './App.scss'

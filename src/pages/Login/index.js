@@ -1,14 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from '../../components/NavBar'
 import styles from './index.module.scss'
 import Input from '../../components/Input'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import classNames from 'classnames'
+import { useDispatch } from 'react-redux'
+import { sendCode } from '../../store/actions/login'
+import { Toast } from 'antd-mobile'
 
 export default function Login() {
-  const onExtraClick = () => {
-    console.log('clicked')
+  const dispatch = useDispatch()
+  const [time, setTime] = useState(0)
+  const onExtraClick = async () => {
+    // 手機號
+    const mobile = form.values.mobile
+    // 加入手机格式不正确，把输入手机区域设置为触碰过，让其提示格式不正确的信息并退出
+    if (!/^1[3456789]\d{9}$/.test(mobile)) {
+      form.setTouched({
+        mobile: true,
+      })
+      return
+    }
+    // 調用Action
+    await dispatch(sendCode(mobile))
+    Toast.show({
+      icon: 'success',
+      content: '获取验证码成功',
+    })
+    // 倒计时
+    setTime(5)
+    let timeId = setInterval(() => {
+      setTime((time) => {
+        if (time === 1) {
+          clearInterval(timeId)
+        }
+        return time - 1
+      })
+    }, 1000)
   }
 
   const form = useFormik({
@@ -63,7 +92,7 @@ export default function Login() {
                 className="input"
                 name="code"
                 placeholder="請輸入驗證碼"
-                extra="獲取驗證碼"
+                extra={time === 0 ? '獲取驗證碼' : `${time}s后重新获取`}
                 onExtraClick={onExtraClick}
                 maxLength={6}
                 value={form.values.code}

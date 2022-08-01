@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import classNames from 'classnames'
 import { useDispatch } from 'react-redux'
-import { sendCode } from '../../store/actions/login'
+import { login, sendCode } from '../../store/actions/login'
 import { Toast } from 'antd-mobile'
 
 export default function Login() {
@@ -42,8 +42,8 @@ export default function Login() {
 
   const form = useFormik({
     initialValues: {
-      mobile: '',
-      code: '',
+      mobile: '13888888888',
+      code: '246810',
     },
     validationSchema: Yup.object().shape({
       // validate mobile
@@ -56,8 +56,8 @@ export default function Login() {
         .matches(/^\d{6}$/, '验证码6个数字'),
     }),
 
-    onSubmit: (values) => {
-      console.log(form)
+    onSubmit: (mobile, code) => {
+      dispatch(login(mobile, code))
     },
   })
   return (

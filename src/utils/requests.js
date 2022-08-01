@@ -16,7 +16,11 @@ request.interceptors.response.use(
   (response) => {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
-
+    if (response.request.status === 201)
+      Toast.show({
+        icon: 'success',
+        content: '认证成功',
+      })
     return response
   },
   (error) => {

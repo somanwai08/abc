@@ -9,3 +9,19 @@ export const sendCode = (mobile) => {
     await request.get(`/sms/codes/${mobile}`)
   }
 }
+
+// 保存Token到本地
+export const saveToken = (payload) => {
+  return {
+    type: 'login/saveToken',
+    payload,
+  }
+}
+// 登录功能
+export const login = (data) => {
+  return async (dispatch) => {
+    let res = await request.post('/authorizations', data)
+    console.log(res, 'res')
+    dispatch(saveToken(res.data.data))
+  }
+}

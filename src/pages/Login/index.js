@@ -8,8 +8,10 @@ import classNames from 'classnames'
 import { useDispatch } from 'react-redux'
 import { login, sendCode } from '../../store/actions/login'
 import { Toast } from 'antd-mobile'
+import { useHistory } from 'react-router-dom'
 
 export default function Login() {
+  const history = useHistory()
   const dispatch = useDispatch()
   const [time, setTime] = useState(0)
   const onExtraClick = async () => {
@@ -57,7 +59,10 @@ export default function Login() {
     }),
 
     onSubmit: (mobile, code) => {
+      // 登录验证
       dispatch(login(mobile, code))
+      // 跳转首页
+      history.push('/home')
     },
   })
   return (

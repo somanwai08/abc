@@ -1,4 +1,5 @@
 import request from '../../utils/requests'
+import { setTokenInfo } from '../../utils/storage'
 /**
  * 发送短信验证码
  * @param {string} mobile 手机号码
@@ -10,7 +11,7 @@ export const sendCode = (mobile) => {
   }
 }
 
-// 保存Token到本地
+// 保存Token到redux
 export const saveToken = (payload) => {
   return {
     type: 'login/saveToken',
@@ -22,6 +23,9 @@ export const login = (data) => {
   return async (dispatch) => {
     let res = await request.post('/authorizations', data)
     console.log(res, 'res')
+    // token保存到redux
     dispatch(saveToken(res.data.data))
+    // token保存到本地存储
+    setTokenInfo(res.data.data)
   }
 }

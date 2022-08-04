@@ -6,10 +6,12 @@ import {
   Redirect,
   //Link
 } from 'react-router-dom'
+// import { History } from './utils/history'
+import TabBarLayout from './pages/Layouts/TabBarLayout'
 
 import './App.scss'
 const Login = React.lazy(() => import('@/pages/Login'))
-const Home = React.lazy(() => import('@/pages/Home'))
+// const Home = React.lazy(() => import('@/pages/Home'))
 
 export default function App() {
   return (
@@ -20,7 +22,7 @@ export default function App() {
         <Suspense fallback={<div>loading...</div>}>
           <Switch>
             <Redirect exact from="/" to="/home"></Redirect>
-            <Route path="/home" component={Home}></Route>
+            <Route path="/home" component={TabBarLayout}></Route>
             <Route path="/login" component={Login}></Route>
           </Switch>
         </Suspense>

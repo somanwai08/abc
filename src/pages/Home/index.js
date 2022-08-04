@@ -1,12 +1,6 @@
 import React from 'react'
+import '../../icofont/icofont.min.css'
 
 export default function Home() {
-  return (
-    <div>
-      Home1234
-      <svg className="icon" aria-hidden="true">
-        <use xlinkHref="icon-xiaotuzi"></use>
-      </svg>
-    </div>
-  )
+  return <div>Home1234</div>
 }

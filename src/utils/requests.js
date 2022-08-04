@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Toast } from 'antd-mobile'
+import { getTokenInfo } from './storage'
 
 // 1. 创建新的 axios 实例
 const request = axios.create({
@@ -9,6 +10,13 @@ const request = axios.create({
 
 // 2. 设置请求拦截器和响应拦截器
 request.interceptors.request.use((config) => {
+  // 获取缓存中的 Token 信息
+  const token = getTokenInfo().token || ''
+  // 设置请求头的 Authorization 字段
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
   return config
 })
 

@@ -4,13 +4,15 @@ import {
   Route,
   Switch,
   Redirect,
-  //Link
+  // Link,
 } from 'react-router-dom'
 // import { History } from './utils/history'
 import TabBarLayout from './pages/Layouts/TabBarLayout'
 
 import './App.scss'
+import ProfileEdit from './pages/Profile/Edit'
 const Login = React.lazy(() => import('@/pages/Login'))
+
 // const Home = React.lazy(() => import('@/pages/Home'))
 
 export default function App() {
@@ -23,6 +25,7 @@ export default function App() {
           <Switch>
             <Redirect exact from="/" to="/home"></Redirect>
             <Route path="/home" component={TabBarLayout}></Route>
+            <Route path="/profile/edit" component={ProfileEdit}></Route>
             <Route path="/login" component={Login}></Route>
           </Switch>
         </Suspense>

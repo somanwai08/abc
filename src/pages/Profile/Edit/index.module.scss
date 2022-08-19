@@ -3,7 +3,7 @@
 
   :global {
     .content {
-      position: relative;
+      // position: relative;
       z-index: 1;
       height: 100%;
     }
@@ -129,5 +129,11 @@
   }
   .am-picker-col-indicator {
     // height: 48px;
+  }
+  .adm-dialog-footer .adm-dialog-action-row > .adm-dialog-button:last-child {
+    color: #fc6627;
+  }
+  .adm-dialog-footer .adm-dialog-action-row > .adm-dialog-button {
+    color: black;
   }
 }

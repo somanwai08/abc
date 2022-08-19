@@ -18,6 +18,14 @@ export const saveToken = (payload) => {
     payload,
   }
 }
+
+// 删除redux中的token
+export const deleteToken = () => {
+  return {
+    type: 'login/deleteToken',
+  }
+}
+
 // 登录功能
 export const login = (data) => {
   return async (dispatch) => {

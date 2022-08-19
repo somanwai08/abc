@@ -10,5 +10,6 @@ export default function profile(state = initialValue, action) {
   if (action.type === 'profile/setprofile') {
     return { ...state, profile: { ...action.payload } }
   }
+
   return state
 }

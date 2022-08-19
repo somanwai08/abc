@@ -24,12 +24,13 @@
 
       .input-wrap {
         height: 44px;
-        padding-left: 16px;
+        // padding-left: 16px;
         background-color: #fff;
 
         input {
           height: 44px;
           font-size: 14px;
+          width: 100%;
         }
       }
     }

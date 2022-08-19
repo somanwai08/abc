@@ -51,3 +51,19 @@ export const setUserProfile = (payload) => {
     payload,
   }
 }
+
+// 修改用户信息
+export const updateUserProfile = (data) => {
+  return async (dispatch) => {
+    await request.patch('user/profile', data)
+    dispatch(getUserProfile())
+  }
+}
+
+// 修改用户照片
+export const updatePhoto = (fd) => {
+  return async (dispatch) => {
+    await request.patch('user/photo', fd)
+    dispatch(getUserProfile())
+  }
+}

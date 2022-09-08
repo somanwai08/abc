@@ -8,10 +8,11 @@ import classNames from 'classnames'
 import { useDispatch } from 'react-redux'
 import { login, sendCode } from '../../store/actions/login'
 import { Toast } from 'antd-mobile'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 export default function Login() {
   const history = useHistory()
+  const location = useLocation()
   const dispatch = useDispatch()
   const [time, setTime] = useState(0)
   const onExtraClick = async () => {
@@ -58,11 +59,15 @@ export default function Login() {
         .matches(/^\d{6}$/, '验证码6个数字'),
     }),
 
-    onSubmit: (mobile, code) => {
+    onSubmit: async (mobile, code) => {
       // 登录验证
-      dispatch(login(mobile, code))
-      // 跳转首页
-      history.push('/home')
+      await dispatch(login(mobile, code))
+      // 跳转首页,或者跳回之前的页面
+      if (location.state) {
+        history.push(location.state.from.pathname)
+      } else {
+        history.push('/home')
+      }
     },
   })
   return (

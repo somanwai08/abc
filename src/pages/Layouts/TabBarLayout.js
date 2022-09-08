@@ -1,13 +1,14 @@
 // import Icon from '@/components/Icon'
 import '../../icofont/icofont.min.css'
 import classnames from 'classnames'
-import { useHistory, useLocation, Route } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import styles from './index.module.scss'
 // import { Route, Switch } from 'react-router-dom'
 import Home from '../Home'
 import Profile from '../Profile'
 import Question from '../Question'
 import Video from '../Video'
+import AuthRoute from '../../components/AuthRoute'
 
 // 将 tab 按钮的数据放在一个数组中
 // - id 唯一性ID
@@ -38,10 +39,10 @@ const TabBarLayout = () => {
     <div className={styles.root}>
       {/* 区域一：点击按钮切换显示内容的区域 */}
       <div className="tab-content">
-        <Route path="/home/index" component={Home}></Route>
-        <Route path="/home/question" component={Question}></Route>
-        <Route path="/home/video" component={Video}></Route>
-        <Route path="/home/profile" component={Profile}></Route>
+        <AuthRoute path="/home/index" component={Home}></AuthRoute>
+        <AuthRoute path="/home/question" component={Question}></AuthRoute>
+        <AuthRoute path="/home/video" component={Video}></AuthRoute>
+        <AuthRoute path="/home/profile" component={Profile}></AuthRoute>
       </div>
 
       {/* 区域二：按钮区域，会使用固定定位显示在页面底部 */}

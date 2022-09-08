@@ -2,8 +2,9 @@ import React from 'react'
 import styles from './index.module.scss'
 import { LeftOutlined } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
+import classNames from 'classnames'
 
-export default function NavBar({ children, extra, onLeftClick }) {
+export default function NavBar({ children, extra, onLeftClick, className }) {
   const history = useHistory()
   const back = () => {
     if (onLeftClick) {
@@ -14,7 +15,7 @@ export default function NavBar({ children, extra, onLeftClick }) {
   }
   return (
     <div>
-      <div className={styles.root}>
+      <div className={classNames(styles.root, className)}>
         {/* 後退按鈕 */}
         <div className="left">
           <LeftOutlined onClick={back} />

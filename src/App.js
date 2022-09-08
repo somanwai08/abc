@@ -17,6 +17,7 @@ import history from './utils/history'
 const Login = React.lazy(() => import('@/pages/Login'))
 const Chat = React.lazy(() => import('@/pages/Profile/Chat'))
 const NotFound = React.lazy(() => import('@/pages/Notfound'))
+const Feedback = React.lazy(() => import('@/pages/Profile/Feedback'))
 // const Home = React.lazy(() => import('@/pages/Home'))
 
 export default function App() {
@@ -31,6 +32,10 @@ export default function App() {
             <Redirect exact from="/" to="/home"></Redirect>
             <AuthRoute path="/home" component={TabBarLayout}></AuthRoute>
             <AuthRoute path="/profile/edit" component={ProfileEdit}></AuthRoute>
+            <AuthRoute
+              path="/profile/feedback"
+              component={Feedback}
+            ></AuthRoute>
             <Route path="/login" component={Login}></Route>
             <AuthRoute path="/profile/chat" component={Chat}></AuthRoute>
             <Route component={NotFound}></Route>

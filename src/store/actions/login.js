@@ -30,7 +30,6 @@ export const deleteToken = () => {
 export const login = (data) => {
   return async (dispatch) => {
     let res = await request.post('/authorizations', data)
-    console.log(res, 'res')
     // token保存到redux
     dispatch(saveToken(res.data.data))
     // token保存到本地存储

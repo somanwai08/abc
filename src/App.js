@@ -30,7 +30,7 @@ export default function App() {
         <Suspense fallback={<div>loading...</div>}>
           <Switch>
             <Redirect exact from="/" to="/home"></Redirect>
-            <AuthRoute path="/home" component={TabBarLayout}></AuthRoute>
+            <Route path="/home" component={TabBarLayout}></Route>
             <AuthRoute path="/profile/edit" component={ProfileEdit}></AuthRoute>
             <AuthRoute
               path="/profile/feedback"

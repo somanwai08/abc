@@ -11,7 +11,6 @@ export default function AuthRoute({ component: Component, ...rest }) {
         if (hasToken()) {
           return <Component></Component>
         }
-        console.log('走到这里')
         return (
           <Redirect
             to={{

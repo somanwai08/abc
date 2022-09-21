@@ -3,7 +3,8 @@ import classNames from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import '../../../../icofont/icofont.min.css'
 import styles from './index.module.scss'
-import { delChannel } from '../../../../store/actions/home'
+import { addRecChannel, delChannel } from '../../../../store/actions/home'
+import { Toast } from 'antd-mobile'
 
 /**
  * 频道管理组件
@@ -21,6 +22,20 @@ const Channels = ({ tabActiveIndex, onClose, onChange }) => {
   })
   const [editing, setEditing] = useState(false)
   const dispatch = useDispatch()
+  const deleteChannels = (id, index) => {
+    if (userChannels.length <= 4) {
+      Toast.show('至少保留4個頻道')
+      return
+    }
+    dispatch(delChannel(id))
+    // 處理高亮
+    if (tabActiveIndex === index) {
+      // 如果刪除的頻道下標等於高亮的下標，則讓推薦高亮
+      onChange(0)
+    } else if (tabActiveIndex > index) {
+      onChange(tabActiveIndex - 1)
+    }
+  }
 
   return (
     <div className={styles.root}>
@@ -63,11 +78,11 @@ const Channels = ({ tabActiveIndex, onClose, onChange }) => {
                 }}
               >
                 {item.name}
-                {editing === true ? (
+                {item.id !== 0 && editing === true ? (
                   <i
                     class="icofont-close-circled"
                     onClick={() => {
-                      dispatch(delChannel(item.id))
+                      deleteChannels(item.id, i)
                     }}
                   ></i>
                 ) : (
@@ -86,8 +101,14 @@ const Channels = ({ tabActiveIndex, onClose, onChange }) => {
           </div>
           <div className="channel-list">
             {recommendedChannels.map((item) => (
-              <span className="channel-list-item" key={item.id}>
-                {item.name}
+              <span
+                className="channel-list-item"
+                key={item.id}
+                onClick={() => {
+                  dispatch(addRecChannel(item))
+                }}
+              >
+                +{item.name}
               </span>
             ))}
           </div>

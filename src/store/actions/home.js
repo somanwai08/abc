@@ -73,3 +73,20 @@ export const delChannel = (channel) => {
     )
   }
 }
+
+// 從‘推薦頻道’中點擊添加一個頻道
+export const addRecChannel = (channel) => {
+  return async (dispatch, getState) => {
+    const { userChannels } = getState().home
+
+    if (hasToken()) {
+      // 如果有登錄，就發送請求添加頻道
+
+      await request.patch('user/channels', { channels: [channel] })
+    } else {
+      saveChannelsToStorage([...userChannels, channel])
+    }
+    // 把接收到的channel，加入到redux中的userChannels
+    dispatch(saveUserChannels([...userChannels, channel]))
+  }
+}

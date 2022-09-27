@@ -6,6 +6,7 @@ import { getAllChannels, getUserChannels } from '../../store/actions/home'
 import '../../icofont/icofont.min.css'
 import { Popup } from 'antd-mobile'
 import Channels from './components/Channels'
+import ArticleList from './components/ArticleList'
 
 export default function Home() {
   const tabs = useSelector((state) => state.home.userChannels)
@@ -27,7 +28,15 @@ export default function Home() {
 
   return (
     <div className={styles.root}>
-      <Tabs tabs={tabs} index={active} onChange={changeActive}></Tabs>
+      <Tabs tabs={tabs} index={active} onChange={changeActive}>
+        {tabs.map((item) => (
+          <ArticleList
+            key={item.id}
+            id={item.id}
+            activeId={tabs[active].id}
+          ></ArticleList>
+        ))}
+      </Tabs>
 
       {/* 频道 Tab 栏右侧的两个图标按钮：搜索、频道管理 */}
       <div className="tabs-opration">

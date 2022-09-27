@@ -2,6 +2,7 @@
 const initialState = {
   userChannels: [],
   allChannels: [],
+  articleList: {},
 }
 
 export default function home(state = initialState, action) {
@@ -16,6 +17,18 @@ export default function home(state = initialState, action) {
         ...state,
         allChannels: action.payload,
       }
+    case 'home/setAtcList':
+      return {
+        ...state,
+        articleList: {
+          ...state.articleList,
+          [action.payload.id]: {
+            timestamp: action.payload.timestamp,
+            list: action.payload.list,
+          },
+        },
+      }
+
     default:
       return state
   }

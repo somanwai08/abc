@@ -90,3 +90,33 @@ export const addRecChannel = (channel) => {
     dispatch(saveUserChannels([...userChannels, channel]))
   }
 }
+
+// 發送請求，获取文章列表数据
+export const getAtcList = (id, timestamp) => {
+  return async (dispatch) => {
+    const res = await request({
+      url: 'articles',
+      method: 'GET',
+      params: {
+        channel_id: id,
+        timestamp,
+      },
+    })
+
+    dispatch(
+      setAtcList({
+        id,
+        timestamp: res.data.data.pre_timestamp,
+        list: res.data.data.results,
+      })
+    )
+  }
+}
+
+// 把文章列表數據存入redux
+export const setAtcList = (payload) => {
+  return {
+    type: 'home/setAtcList',
+    payload,
+  }
+}

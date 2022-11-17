@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import Tabs from '../../components/Tabs/index'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllChannels, getUserChannels } from '../../store/actions/home'
+import {
+  getAllChannels,
+  getUserChannels,
+  setMoreAction,
+} from '../../store/actions/home'
 import '../../icofont/icofont.min.css'
 import { Popup } from 'antd-mobile'
 import Channels from './components/Channels'
@@ -12,14 +16,16 @@ export default function Home() {
   const tabs = useSelector((state) => state.home.userChannels)
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
+  const dispatch = useDispatch()
   const changeActive = (index) => {
     setActive(index)
+
+    dispatch(setMoreAction({ articleId: '', channelId: index }))
   }
   const onClose = () => {
     setOpen(false)
   }
 
-  const dispatch = useDispatch()
   useEffect(() => {
     // 發送請求獲取用戶頻道
     dispatch(getUserChannels())

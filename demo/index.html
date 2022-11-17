@@ -1,0 +1,27 @@
+;
+<html>
+  <head>
+    <title>abc</title>
+    <style>
+      div {
+        height: 2000px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div></div>
+    <img data-src="../../../../Pictures/WechatIMG1.jpg" alt="" />
+  </body>
+
+  <script>
+    const img = document.querySelector('img')
+    const observer = new IntersectionObserver((entries) => {
+      console.log(entries)
+      if (isIntersecting) {
+        img = entries[0].target.dataset.src
+      }
+    })
+    observer.observe(img)
+  </script>
+</html>

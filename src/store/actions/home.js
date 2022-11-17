@@ -120,3 +120,67 @@ export const setAtcList = (payload) => {
     payload,
   }
 }
+
+// 發請求，獲得更多文章
+export const loadMoreArticles = (id, timestamp) => {
+  return async (dispatch) => {
+    const res = await request({
+      url: 'articles',
+      method: 'GET',
+      params: {
+        channel_id: id,
+        timestamp,
+      },
+    })
+    console.log(res.data.data, 'res')
+    dispatch(
+      setMoreArticles({
+        id,
+        timestamp: res.data.data.pre_timestamp,
+        list: res.data.data.results,
+      })
+    )
+  }
+}
+
+// 把更多文章數據存入redux
+export const setMoreArticles = (payload) => {
+  return {
+    type: 'home/setMoreArticles',
+    payload,
+  }
+}
+
+// 點擊差號時獲得的文章id存起來
+export const setMoreAction = (payload) => {
+  return {
+    type: 'home/setMoreAction',
+    payload,
+  }
+}
+
+// 發請求，刪除不感興趣的文章
+export const unLikeArticles = (articleId) => {
+  return async (dispatch, getState) => {
+    await request({
+      url: 'article/dislikes',
+      method: 'post',
+      data: {
+        target: articleId,
+      },
+    })
+
+    const channelId = getState().home.moreAction.channelId
+
+    const articles = getState().home.articleList[channelId]
+    const timestamp = getState().home.articleList[channelId].timestamp
+
+    dispatch(
+      setAtcList({
+        id: channelId,
+        timestamp,
+        list: articles.list.filter((item) => item.art_id !== articleId),
+      })
+    )
+  }
+}
